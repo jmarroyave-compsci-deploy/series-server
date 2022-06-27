@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node dist/index.js",
-    "build": "npm run build:live",
+    "build": "npm run prestart; npm run build:live",
     "clean": "rm -Rf dist",
     "build:copy": "cpx \"src/**/*.{yaml,json,html,crt,key}\" dist/",
     "build:live": "npm run clean && ttsc -p tsconfig.json && npm run build:copy",
