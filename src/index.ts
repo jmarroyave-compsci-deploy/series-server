@@ -9,7 +9,7 @@ import * as fs from 'fs'
 const PORT = config.PORT;
 const DB_SERVER = config.DB_SERVER
 
-if ( config.LOCAL){
+if ( config.LOCAL ){
   process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 }
 
