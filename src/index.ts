@@ -19,6 +19,7 @@ log.info("-".repeat(50))
 log.info("STARTING SERVER")
 log.info("-".repeat(50))
 log.info(`VERSION:\t${config.VERSION}`)
+log.info(`HTTPS:\t${config.HTTPS}`)
 log.info(`PORT:\t${PORT}`)
 log.info(`WEB-SOCKETS:\t${PORT}`)
 log.info(`DB SERVER:\t${DB_SERVER.split("?")[0]}`)
@@ -26,14 +27,18 @@ log.info("-".repeat(50))
 
 const initServer = () => {
     let server;
-    if(config.LOCAL){
+    if(config.HTTPS){
       const httpsOptions = {
         key: fs.readFileSync(`${__dirname}/files/certificates/localhost.key`),
         cert: fs.readFileSync(`${__dirname}/files/certificates/localhost.crt`),
       };
   
-  
-      server = require('https').createServer(httpsOptions, app)  
+      const https = require('https');
+      const httpsAgent = new https.Agent({
+        rejectUnauthorized: false,
+      });
+
+      server = https.createServer(httpsOptions, app)  
     } else {
       server = require('http').createServer(app)
     }
